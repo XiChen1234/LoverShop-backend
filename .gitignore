@@ -57,3 +57,5 @@ build/
 hs_err_pid*
 replay_pid*
 
+# appkey
+src/main/resources/secret.yml
