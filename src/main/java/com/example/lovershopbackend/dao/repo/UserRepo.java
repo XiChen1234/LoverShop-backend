@@ -3,6 +3,8 @@ package com.example.lovershopbackend.dao.repo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.lovershopbackend.dao.model.User;
 import com.example.lovershopbackend.dao.mapper.UserMapper;
+import com.example.lovershopbackend.service.dto.UserDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,11 +22,11 @@ public class UserRepo {
      * @param openId 微信公众平台提供的openid
      * @return 用户信息
      */
-    public User selectByOpenId(String openId) {
+    public UserDTO selectByOpenId(String openId) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(User::getOpenId, openId);
-
-        return userMapper.selectOne(queryWrapper);
+        User user = userMapper.selectOne(queryWrapper);
+        return UserDTO.fromModel(user);
     }
 
     /**

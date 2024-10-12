@@ -1,9 +1,10 @@
 package com.example.lovershopbackend.service.impl;
 
-import com.example.lovershopbackend.controller.response.UserResponse;
+import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.dao.model.User;
 import com.example.lovershopbackend.dao.repo.UserRepo;
 import com.example.lovershopbackend.service.UserService;
+import com.example.lovershopbackend.service.dto.UserDTO;
 import com.example.lovershopbackend.util.WechatUtil;
 import com.example.lovershopbackend.util.entity.LoginEntity;
 import org.springframework.stereotype.Service;
@@ -28,25 +29,18 @@ public class UserServiceImpl implements UserService {
      * @return 用户信息
      */
     @Override
-    public UserResponse login(String code) {
+    public UserVO login(String code) {
         LoginEntity login = wechatUtil.sendLoginRequest(code);// 登陆实体，包含openid和session_key
         // 去数据库层查询用户是否存在
-        User user = userRepo.selectByOpenId(login.getOpenId());
-        UserResponse userResponse = new UserResponse();
+        UserDTO userDTO = userRepo.selectByOpenId(login.getOpenId());
 
         // 注册逻辑
-        if (user == null) {
+        if (userDTO == null) {
             register(login);
         }
+        userDTO = userRepo.selectByOpenId(login.getOpenId()); // 重新获取用户对象，一定保证有数据
 
-        user = userRepo.selectByOpenId(login.getOpenId());
-        userResponse.setUserId(user.getUserId());
-        userResponse.setOpenId(login.getOpenId());
-        userResponse.setUsername(user.getUsername());
-        userResponse.setAvatarUrl(user.getAvatarUrl());
-        userResponse.setMotto(user.getMotto());
-
-        return userResponse;
+        return UserDTO.toVO(userDTO); // 转化为VO对象
     }
 
     /**
@@ -56,12 +50,13 @@ public class UserServiceImpl implements UserService {
      *              个人信息使用默认值生成
      */
     public void register(LoginEntity login) {
-        User newUser = new User();
-        newUser.setOpenId(login.getOpenId());
-        newUser.setUsername("用户" + login.getOpenId().substring(0, 3)); //todo 默认用户名
-        newUser.setAvatarUrl("/image/icon/emotion.png"); //todo 默认头像链接
-        newUser.setMotto("这个用户很懒，没有写任何话"); //todo 默认座右铭
-        newUser.setSessionKey(login.getSessionKey());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setOpenId(login.getOpenId());
+        userDTO.setUsername("用户" + login.getOpenId().substring(0, 3)); //todo 默认用户名
+        userDTO.setAvatarUrl("/image/icon/emotion.png"); //todo 默认头像链接
+        userDTO.setMotto("这个用户很懒，没有写任何话"); //todo 默认座右铭
+        userDTO.setSessionKey(login.getSessionKey());
+        User newUser = UserDTO.toModel(userDTO);
         userRepo.insertUser(newUser);
     }
 }

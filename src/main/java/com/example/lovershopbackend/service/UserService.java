@@ -1,10 +1,10 @@
 package com.example.lovershopbackend.service;
 
-import com.example.lovershopbackend.controller.response.UserResponse;
+import com.example.lovershopbackend.controller.vo.UserVO;
 
 /**
  * @Description 用户service模块
  */
 public interface UserService {
-    UserResponse login(String code);
+    UserVO login(String code);
 }

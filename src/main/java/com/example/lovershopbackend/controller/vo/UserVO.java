@@ -1,4 +1,4 @@
-package com.example.lovershopbackend.controller.response;
+package com.example.lovershopbackend.controller.vo;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * @Description 用户信息响应封装
  */
 @Data
-public class UserResponse {
+public class UserVO {
     private Long userId;
     private String openId;
     private String username;
