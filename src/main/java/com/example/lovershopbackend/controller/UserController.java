@@ -2,6 +2,7 @@ package com.example.lovershopbackend.controller;
 
 import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.controller.request.LoginRequest;
+import com.example.lovershopbackend.controller.request.UserInfoRequest;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,6 @@ public class UserController {
      */
     @PostMapping("/login")
     public CommonResponse<UserVO> login(@RequestBody LoginRequest request) {
-        String code = request.getCode();
-        UserVO login = userService.login(code);
-
-        return CommonResponse.creatForSuccessData(login);
+        return userService.login(request.getCode());
     }
 }

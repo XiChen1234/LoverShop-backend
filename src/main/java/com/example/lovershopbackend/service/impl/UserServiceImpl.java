@@ -1,5 +1,6 @@
 package com.example.lovershopbackend.service.impl;
 
+import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.dao.model.User;
 import com.example.lovershopbackend.dao.repo.UserRepo;
@@ -29,8 +30,11 @@ public class UserServiceImpl implements UserService {
      * @return 用户信息
      */
     @Override
-    public UserVO login(String code) {
+    public CommonResponse<UserVO> login(String code) {
         LoginEntity login = wechatUtil.sendLoginRequest(code);// 登陆实体，包含openid和session_key
+        if (login.getOpenId() == null || login.getSessionKey() == null) {
+            return CommonResponse.createForError("临时code错误");
+        }
         // 去数据库层查询用户是否存在
         UserDTO userDTO = userRepo.selectByOpenId(login.getOpenId());
 
@@ -40,7 +44,7 @@ public class UserServiceImpl implements UserService {
         }
         userDTO = userRepo.selectByOpenId(login.getOpenId()); // 重新获取用户对象，一定保证有数据
 
-        return UserDTO.toVO(userDTO); // 转化为VO对象
+        return CommonResponse.createForSuccessData(UserDTO.toVO(userDTO)); // 转化为VO对象
     }
 
     /**

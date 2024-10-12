@@ -24,28 +24,28 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static <T> CommonResponse<T> creatForSuccess() {
+    public static <T> CommonResponse<T> createForSuccess() {
         return new CommonResponse<>(ResponseCodeEnum.SUCCESS.getCode(), null);
     }
 
-    public static <T> CommonResponse<T> creatForSuccessData(T data) {
+    public static <T> CommonResponse<T> createForSuccessData(T data) {
         return new CommonResponse<>(ResponseCodeEnum.SUCCESS.getCode(), null, data);
     }
 
-    public static <T> CommonResponse<T> creatForError() {
+    public static <T> CommonResponse<T> createForError() {
         return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDesc());
     }
 
-    public static <T> CommonResponse<T> creatForError(String desc) {
+    public static <T> CommonResponse<T> createForError(String desc) {
         return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), desc);
     }
 
 
-    public static <T> CommonResponse<T> creatForFail() {
+    public static <T> CommonResponse<T> createForFail() {
         return new CommonResponse<>(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDesc());
     }
 
-    public static <T> CommonResponse<T> creatForFail(String desc) {
+    public static <T> CommonResponse<T> createForFail(String desc) {
         return new CommonResponse<>(ResponseCodeEnum.FAIL.getCode(), desc);
     }
 }
