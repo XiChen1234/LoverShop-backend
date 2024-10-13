@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @Description 用户信息实体对象
@@ -23,4 +24,8 @@ public class User implements Serializable {
     private String motto;
     @TableField("session_key")
     private String sessionKey;
+    @TableField("register_time")
+    private LocalDateTime registerTime;
+    @TableField("login_time")
+    private LocalDateTime loginTime;
 }

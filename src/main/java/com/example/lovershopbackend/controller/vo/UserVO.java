@@ -1,5 +1,6 @@
 package com.example.lovershopbackend.controller.vo;
 
+import com.example.lovershopbackend.dao.model.User;
 import lombok.Data;
 
 /**
@@ -12,4 +13,14 @@ public class UserVO {
     private String username;
     private String avatarUrl;
     private String motto;
+
+    public static UserVO fromModel(User user) {
+        UserVO userVO = new UserVO();
+        userVO.setUserId(user.getUserId());
+        userVO.setOpenId(user.getOpenId());
+        userVO.setUsername(user.getUsername());
+        userVO.setAvatarUrl(user.getAvatarUrl());
+        userVO.setMotto(user.getMotto());
+        return userVO;
+    }
 }
