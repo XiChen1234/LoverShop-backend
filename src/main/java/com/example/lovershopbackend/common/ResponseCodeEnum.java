@@ -8,9 +8,14 @@ import lombok.Getter;
 @Getter
 public enum ResponseCodeEnum {
     // 响应码动态扩展
-    SUCCESS(200, "SUCCESS"),    // 请求成功
-    ERROR(400, "ERROR"),        // 请求错误，一般为资源请求方式错误
-    FAIL(500, "FAIL");          // 请求失败，一般为服务器内部错误，更严重
+    SUCCESS(200, "请求成功"),
+    ERROR(400, "请求错误"), // 我的业务异常
+
+    // 微信相关异常
+    WX_INVALID_CODE_ERROR(40029, "临时code错误"),
+    WX_USED_CODE_ERROR(40163, "登陆code已经被使用"),
+
+    FAIL(500, "系统异常");
 
     private final int code;
     private final String desc;

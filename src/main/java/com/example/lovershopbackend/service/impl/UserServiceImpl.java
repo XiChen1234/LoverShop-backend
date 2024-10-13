@@ -1,6 +1,8 @@
 package com.example.lovershopbackend.service.impl;
 
+import com.example.lovershopbackend.common.CommonException;
 import com.example.lovershopbackend.common.CommonResponse;
+import com.example.lovershopbackend.common.ResponseCodeEnum;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.dao.model.User;
 import com.example.lovershopbackend.dao.repo.UserRepo;
@@ -32,8 +34,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResponse<UserVO> login(String code) {
         LoginEntity login = wechatUtil.sendLoginRequest(code);// 登陆实体，包含openid和session_key
-        if (login.getOpenId() == null || login.getSessionKey() == null) {
-            return CommonResponse.createForError("临时code错误");
+        if (login.getErrorCode() != null) {
+            throw new CommonException(login.getErrorCode(), "临时code错误");
         }
         // 去数据库层查询用户是否存在
         UserDTO userDTO = userRepo.selectByOpenId(login.getOpenId());

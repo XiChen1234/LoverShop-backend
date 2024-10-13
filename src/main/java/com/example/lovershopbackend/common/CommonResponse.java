@@ -28,6 +28,12 @@ public class CommonResponse<T> {
         return new CommonResponse<>(ResponseCodeEnum.SUCCESS.getCode(), null);
     }
 
+    /**
+     * 自定义成功响应
+     *
+     * @param data 响应数据
+     * @return 通用响应类
+     */
     public static <T> CommonResponse<T> createForSuccessData(T data) {
         return new CommonResponse<>(ResponseCodeEnum.SUCCESS.getCode(), null, data);
     }
@@ -36,16 +42,26 @@ public class CommonResponse<T> {
         return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDesc());
     }
 
-    public static <T> CommonResponse<T> createForError(String desc) {
-        return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), desc);
+    public static <T> CommonResponse<T> createForError(String message) {
+        return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), message);
     }
 
+    /**
+     * 自定义异常响应
+     *
+     * @param commonException 自定义异常（自定义错误码和信息）
+     * @return 通用响应类
+     */
+    public static <T> CommonResponse<T> createForError(CommonException commonException) {
+        return new CommonResponse<>(commonException.getCode(), commonException.getMessage());
+    }
 
+    /**
+     * 兜底异常处理
+     *
+     * @return 通用响应类
+     */
     public static <T> CommonResponse<T> createForFail() {
-        return new CommonResponse<>(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDesc());
-    }
-
-    public static <T> CommonResponse<T> createForFail(String desc) {
-        return new CommonResponse<>(ResponseCodeEnum.FAIL.getCode(), desc);
+        return new CommonResponse<>(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.ERROR.getDesc());
     }
 }

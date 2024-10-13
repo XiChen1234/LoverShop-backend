@@ -16,4 +16,8 @@ public class LoginEntity {
     private String openId;
     @JsonProperty("session_key")
     private String sessionKey;
+    @JsonProperty("errcode")
+    private Integer errorCode;
+    @JsonProperty("errmsg")
+    private String errorMessage;
 }
