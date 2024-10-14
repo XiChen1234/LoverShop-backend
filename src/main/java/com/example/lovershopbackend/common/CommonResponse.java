@@ -1,5 +1,7 @@
 package com.example.lovershopbackend.common;
 
+import com.example.lovershopbackend.exception.CommonException;
+import com.example.lovershopbackend.exception.ResponseCodeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 

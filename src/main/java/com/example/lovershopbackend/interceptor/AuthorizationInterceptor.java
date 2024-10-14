@@ -1,12 +1,12 @@
-package com.example.lovershopbackend.common.interceptor;
+package com.example.lovershopbackend.interceptor;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.lovershopbackend.common.CommonException;
-import com.example.lovershopbackend.common.ResponseCodeEnum;
+import com.example.lovershopbackend.exception.CommonException;
+import com.example.lovershopbackend.exception.ResponseCodeEnum;
 import com.example.lovershopbackend.common.annotation.Authorize;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.service.UserService;

@@ -1,6 +1,6 @@
 package com.example.lovershopbackend.controller;
 
-import com.example.lovershopbackend.common.CommonException;
+import com.example.lovershopbackend.exception.CommonException;
 import com.example.lovershopbackend.common.CommonResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

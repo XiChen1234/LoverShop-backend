@@ -1,4 +1,4 @@
-package com.example.lovershopbackend.common;
+package com.example.lovershopbackend.exception;
 
 import lombok.Getter;
 

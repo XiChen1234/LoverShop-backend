@@ -3,7 +3,7 @@ package com.example.lovershopbackend.service.impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.lovershopbackend.common.CommonException;
+import com.example.lovershopbackend.exception.CommonException;
 import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.dao.mapper.UserMapper;
