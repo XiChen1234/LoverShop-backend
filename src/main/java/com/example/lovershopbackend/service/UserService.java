@@ -8,4 +8,6 @@ import com.example.lovershopbackend.controller.vo.UserVO;
  */
 public interface UserService {
     CommonResponse<UserVO> login(String code);
+
+    CommonResponse<UserVO> getUserInfo(Long userId);
 }

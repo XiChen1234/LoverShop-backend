@@ -11,6 +11,9 @@ public enum ResponseCodeEnum {
     SUCCESS(200, "请求成功"),
     ERROR(400, "请求错误"), // 我的业务异常
 
+    // 鉴权异常
+    UNAUTHORIZED(10401, "鉴权异常"),
+
     // 微信相关异常
     WX_INVALID_CODE_ERROR(40029, "临时code错误"),
     WX_USED_CODE_ERROR(40163, "登陆code已经被使用"),
