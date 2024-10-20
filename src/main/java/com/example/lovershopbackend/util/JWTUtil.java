@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class JWTUtil {
     private static final String SECRET_KEY = "zlc66752878";
-    private static final Long EXPIRES_TIME = 6L; // 过期时间60min
+    private static final Long EXPIRES_TIME = 60 * 60L; // 过期时间60min
 
     public static String createToken(Long userId) {
         return JWT.create()
