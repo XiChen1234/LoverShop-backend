@@ -26,7 +26,7 @@ public class UserController {
         return userService.login(request);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public CommonResponse<UserVO> getUserInfo(@RequestBody UserInfoRequest request) {
         return userService.getUserInfo(request.getUserId());
     }
