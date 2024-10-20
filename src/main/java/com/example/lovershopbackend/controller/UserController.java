@@ -1,6 +1,7 @@
 package com.example.lovershopbackend.controller;
 
 import com.example.lovershopbackend.common.CommonResponse;
+import com.example.lovershopbackend.common.annotation.Authorize;
 import com.example.lovershopbackend.controller.request.LoginRequest;
 import com.example.lovershopbackend.controller.request.UserInfoRequest;
 import com.example.lovershopbackend.controller.vo.UserVO;
@@ -17,11 +18,13 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/api/user")
+@Authorize
 public class UserController {
     @Resource
     private UserService userService;
 
     @PostMapping("/login")
+    @Authorize(required = false)
     public CommonResponse<String> login(@RequestBody LoginRequest request) {
         return userService.login(request);
     }

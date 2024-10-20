@@ -64,7 +64,7 @@ public class CommonResponse<T> {
     }
 
     public static <T> CommonResponse<T> createForError(CommonException exception) {
-        return new CommonResponse<>(ResponseCodeEnum.ERROR.getCode(), exception.getMessage());
+        return new CommonResponse<>(exception.getCode(), exception.getMessage());
     }
 
     /**

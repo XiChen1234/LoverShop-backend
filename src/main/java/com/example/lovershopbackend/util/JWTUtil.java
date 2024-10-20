@@ -1,6 +1,7 @@
 package com.example.lovershopbackend.util;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class JWTUtil {
     private static final String SECRET_KEY = "zlc66752878";
-    private static final Long EXPIRES_TIME = 60 * 60L; // 过期时间60min
+    private static final Long EXPIRES_TIME = 6L; // 过期时间60min
 
     public static String createToken(Long userId) {
         return JWT.create()
@@ -28,18 +29,24 @@ public class JWTUtil {
     }
 
 
-    public static Map<String, Object> parseToken(String token) {
+    public static Long parseToken(String token) {
+        DecodedJWT decodedJWT;
         try {
-            return JWT.require(Algorithm.HMAC256(SECRET_KEY))
-                    .build()
-                    .verify(token)
-                    .getClaim("claims").asMap();
-        }catch (JWTDecodeException | TokenExpiredException e) {  // token解析错误，或token过期
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY))
+                    .build();
+
+            decodedJWT = verifier.verify(token);
+        } catch (JWTDecodeException e) {  // token解析错误，或token过期
             e.printStackTrace();
-            throw new CommonException(ResponseCodeEnum.UNAUTHORIZED, e.getMessage());
+            throw new CommonException(ResponseCodeEnum.UNAUTHORIZED, "token无效");
+        } catch (TokenExpiredException e) {
+            e.printStackTrace();
+            throw new CommonException(ResponseCodeEnum.UNAUTHORIZED, "token已过期");
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
+
+        return decodedJWT.getClaim("userId").asLong();
     }
 }
