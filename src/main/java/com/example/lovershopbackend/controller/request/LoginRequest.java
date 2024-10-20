@@ -14,5 +14,5 @@ public class LoginRequest {
     private String email;
     private String verify;
     // 微信暂时不会设计
-    private LoginTypeEnum type;
+    private Integer type; // 0表示Account登陆
 }
