@@ -10,6 +10,7 @@ import com.example.lovershopbackend.mapper.UserMapper;
 import com.example.lovershopbackend.mapper.entity.User;
 import com.example.lovershopbackend.service.UserService;
 import com.example.lovershopbackend.strategy.LoginStrategy;
+import com.example.lovershopbackend.util.JWTUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,15 +28,14 @@ public class UserServiceImpl implements UserService {
     private LoginStrategyFactory loginStrategyFactory;
 
     @Override
-    public CommonResponse<UserVO> login(LoginRequest request) {
+    public CommonResponse<String> login(LoginRequest request) {
         LoginStrategy strategy = loginStrategyFactory.getStrategy(request.getType());
         Long userId = strategy.login(request);
         if (userId == null) {
             return CommonResponse.createForError(ResponseCodeEnum.LOGIN_ERROR);
         }
-
-        User user = userMapper.selectById(userId);
-        return CommonResponse.createForSuccessData(UserVO.toVO(user));
+        String token = JWTUtil.createToken(userId);
+        return CommonResponse.createForSuccessData(token);
     }
 
     @Override

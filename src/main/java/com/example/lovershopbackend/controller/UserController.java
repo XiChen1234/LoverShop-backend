@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public CommonResponse<UserVO> login(@RequestBody LoginRequest request) {
+    public CommonResponse<String> login(@RequestBody LoginRequest request) {
         return userService.login(request);
     }
 

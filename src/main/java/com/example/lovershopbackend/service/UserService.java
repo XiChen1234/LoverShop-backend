@@ -14,7 +14,7 @@ public interface UserService {
      * @param request 登录请求
      * @return 用户信息
      */
-    CommonResponse<UserVO> login(LoginRequest request);
+    CommonResponse<String> login(LoginRequest request);
 
     /**
      * 获取用户信息

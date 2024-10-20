@@ -12,6 +12,7 @@ public enum ResponseCodeEnum {
     ERROR(400, "请求错误"), // 我的业务异常
 
     LOGIN_ERROR(10001, "用户名或密码错误"),
+    PARAM_ERROR(10002, "参数错误"),
     UNAUTHORIZED(10401, "鉴权异常"),
     NOT_FOUND(10404, "查询失败"),
 
