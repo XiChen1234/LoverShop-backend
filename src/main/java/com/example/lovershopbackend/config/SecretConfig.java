@@ -20,4 +20,6 @@ public class SecretConfig {
     private String appId;
     @Value("${appSecret}")
     private String appSecret;
+    @Value("${tokenSecret}")
+    private String tokenSecret;
 }

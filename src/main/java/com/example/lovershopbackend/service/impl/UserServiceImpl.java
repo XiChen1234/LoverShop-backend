@@ -8,7 +8,9 @@ import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.dao.mapper.UserMapper;
 import com.example.lovershopbackend.dao.model.User;
+import com.example.lovershopbackend.exception.ResponseCodeEnum;
 import com.example.lovershopbackend.service.UserService;
+import com.example.lovershopbackend.util.TokenUtil;
 import com.example.lovershopbackend.util.WechatUtil;
 import com.example.lovershopbackend.util.entity.LoginEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description 用户service模块具体实现
@@ -25,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private WechatUtil wechatUtil;
+    @Resource
+    private TokenUtil tokenUtil;
     @Resource
     private UserMapper userMapper;
 
@@ -61,11 +67,7 @@ public class UserServiceImpl implements UserService {
             userMapper.updateById(user);
         }
         UserVO userVO = UserVO.fromModel(user);
-        String token = JWT.create().withAudience("user") // 用户模块的jwt
-                .withClaim("userId", user.getUserId()) // 用户id
-                .withIssuedAt(Instant.now()) // 签发时间现在
-                .withExpiresAt(Instant.now().plusMillis(60)) // 过期时间60min
-                .sign(Algorithm.HMAC256(user.getOpenId())); // 签名密钥，每个人能不一样);
+        String token = getToken(user.getUserId());
         userVO.setToken(token);
 
         return CommonResponse.createForSuccessData(userVO); // 转化为VO对象
@@ -80,6 +82,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResponse<UserVO> getUserInfo(Long userId) {
         // todo 用户信息查询接口
-        return CommonResponse.createForSuccessData(new UserVO());
+        User user = userMapper.selectById(userId);
+
+        UserVO userVO = UserVO.fromModel(user);
+        return CommonResponse.createForSuccessData(userVO);
+    }
+
+
+    /**
+     * 生成token
+     *
+     * @param userId 用户id
+     * @return 用户token
+     */
+    private String getToken(Long userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        return tokenUtil.getToken(map);
     }
 }

@@ -3,6 +3,7 @@ package com.example.lovershopbackend.controller;
 import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.common.annotation.Authorize;
 import com.example.lovershopbackend.controller.request.LoginRequest;
+import com.example.lovershopbackend.controller.request.UserInfoRequest;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,12 @@ public class UserController {
      * @return 用户信息VO
      */
     @PostMapping("/login")
-    @Authorize
     public CommonResponse<UserVO> login(@RequestBody LoginRequest request) {
         return userService.login(request.getCode());
+    }
+
+    @PostMapping("")
+    public CommonResponse<UserVO> getUserInfo(@RequestBody UserInfoRequest request) {
+        return userService.getUserInfo(request.getUserId());
     }
 }

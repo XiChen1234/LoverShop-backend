@@ -1,4 +1,4 @@
-package com.example.lovershopbackend.controller;
+package com.example.lovershopbackend.exception;
 
 import com.example.lovershopbackend.exception.CommonException;
 import com.example.lovershopbackend.common.CommonResponse;

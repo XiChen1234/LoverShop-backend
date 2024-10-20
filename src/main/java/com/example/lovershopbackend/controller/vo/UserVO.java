@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserVO {
     private Long userId;
-    private String openId;
     private String username;
     private String avatarUrl;
     private String motto;
@@ -22,7 +21,6 @@ public class UserVO {
     public static UserVO fromModel(User user) {
         UserVO userVO = new UserVO();
         userVO.setUserId(user.getUserId());
-        userVO.setOpenId(user.getOpenId());
         userVO.setUsername(user.getUsername());
         userVO.setAvatarUrl(user.getAvatarUrl());
         userVO.setMotto(user.getMotto());
