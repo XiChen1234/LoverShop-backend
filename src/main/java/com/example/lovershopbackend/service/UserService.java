@@ -2,6 +2,7 @@ package com.example.lovershopbackend.service;
 
 import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.controller.request.LoginRequest;
+import com.example.lovershopbackend.controller.request.RegisterRequest;
 import com.example.lovershopbackend.controller.vo.UserVO;
 
 /**
@@ -15,6 +16,14 @@ public interface UserService {
      * @return 用户信息
      */
     CommonResponse<String> login(LoginRequest request);
+
+    /**
+     * 用户注册接口
+     *
+     * @param request 注册请求
+     * @return 用户注册成功时分配的账号
+     */
+    CommonResponse<String> register(RegisterRequest request);
 
     /**
      * 获取用户信息

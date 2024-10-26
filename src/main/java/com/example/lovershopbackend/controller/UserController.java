@@ -3,6 +3,7 @@ package com.example.lovershopbackend.controller;
 import com.example.lovershopbackend.common.CommonResponse;
 import com.example.lovershopbackend.common.annotation.Authorize;
 import com.example.lovershopbackend.controller.request.LoginRequest;
+import com.example.lovershopbackend.controller.request.RegisterRequest;
 import com.example.lovershopbackend.controller.request.UserInfoRequest;
 import com.example.lovershopbackend.controller.vo.UserVO;
 import com.example.lovershopbackend.service.UserService;
@@ -27,6 +28,12 @@ public class UserController {
     @Authorize(required = false)
     public CommonResponse<String> login(@RequestBody LoginRequest request) {
         return userService.login(request);
+    }
+
+    @PostMapping("/register")
+    @Authorize(required = false)
+    public CommonResponse<String> register(@RequestBody RegisterRequest request) {
+        return userService.register(request);
     }
 
     @PostMapping("")
