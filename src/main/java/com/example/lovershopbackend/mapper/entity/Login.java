@@ -23,4 +23,6 @@ public class Login {
     private String phone;
     @TableField("email")
     private String email;
+    @TableField("status")
+    private Integer status;
 }
