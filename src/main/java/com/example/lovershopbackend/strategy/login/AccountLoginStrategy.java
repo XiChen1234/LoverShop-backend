@@ -1,4 +1,4 @@
-package com.example.lovershopbackend.strategy;
+package com.example.lovershopbackend.strategy.login;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.lovershopbackend.controller.request.LoginRequest;
